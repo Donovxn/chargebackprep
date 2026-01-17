@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
+/* Brand tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core */
+  --cbp-bg: #fafafa;
+  --cbp-text: #0b1220;
+  --cbp-muted: #4b5563;
+
+  /* Surfaces */
+  --cbp-surface: #ffffff;
+  --cbp-border: rgba(2, 6, 23, 0.10);
+
+  /* Accent (mint -> teal) */
+  --cbp-accent-1: #a5f3eb; /* mint */
+  --cbp-accent-2: #2dd4bf; /* teal */
+  --cbp-accent-3: #0f766e; /* deep teal */
+
+  /* Typography */
+  --cbp-font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--cbp-font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
+/* Base */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--cbp-font-sans);
+}
+
+/* Better focus by default */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--cbp-accent-2) 65%, white 35%);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: color-mix(in oklab, var(--cbp-accent-1) 60%, white 40%);
+}
+
+/* Utility: premium dark hero background */
+.hero-bg {
+  background:
+    radial-gradient(900px circle at 18% 20%, rgba(45, 212, 191, 0.20), transparent 55%),
+    radial-gradient(700px circle at 82% 25%, rgba(165, 243, 235, 0.16), transparent 52%),
+    linear-gradient(180deg, #060b1a 0%, #050815 55%, #070a14 100%);
+}
+
+/* Soft shadow that reads premium without looking heavy */
+.shadow-soft {
+  box-shadow:
+    0 1px 2px rgba(2, 6, 23, 0.06),
+    0 8px 28px rgba(2, 6, 23, 0.10);
+}
+
+/* Subtle divider on dark sections */
+.dark-divider {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0)
+  );
 }
