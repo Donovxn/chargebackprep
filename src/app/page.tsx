@@ -293,7 +293,7 @@ export default function Home() {
               </div>
             </div>
 
-            <ReadinessScoreForm toEmail={TO_EMAIL} />
+            <ReadinessScoreForm toEmail="donovan@chargebackprep.com" />
           </div>
         </div>
       </section>

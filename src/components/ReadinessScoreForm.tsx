@@ -22,12 +22,24 @@ const initial: FormState = {
   notes: "",
 };
 
+const OFFER_LABEL: Record<string, string> = {
+  course: "Course",
+  coaching: "Coaching",
+  mastermind: "Mastermind/Cohort",
+  membership: "Membership",
+  community: "Paid community",
+  signals: "Signals subscription",
+  other: "Other",
+};
+
 function buildEmailBody(v: FormState) {
+  const offer = OFFER_LABEL[v.offerType] ?? v.offerType;
+
   return `Quick readiness score request
 
 Name: ${v.name || "(not provided)"}
 
-1) What do you sell? ${v.offerType}
+1) What do you sell? ${offer}
 2) Platform(s): ${v.platform}
 3) Payment processor: ${v.processor}
 4) Refund policy link: ${v.policyLink}
@@ -38,7 +50,8 @@ ${v.notes || "(none)"}
 `;
 }
 
-export default function ReadinessScoreForm({ toEmail }: { toEmail: string }) {
+export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.com" }: { toEmail?: string }) {
+
   const [v, setV] = useState<FormState>(initial);
   const [copied, setCopied] = useState(false);
 
