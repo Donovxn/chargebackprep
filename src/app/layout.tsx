@@ -15,10 +15,12 @@ export const metadata: Metadata = {
   description:
     "Dispute readiness + fast evidence packs for creators selling digital offers. No win-rate promises. Not legal advice.",
   icons: {
-    icon: [{ url: "/apple-touch-icon.png", type: "image/png" }],
+    icon: [{ url: "/favicon.ico" }],
+    shortcut: [{ url: "/favicon.ico" }],
     apple: [{ url: "/apple-touch-icon.png" }],
   },
 };
+
 
 
 
