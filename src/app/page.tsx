@@ -43,25 +43,23 @@ export default function Home() {
               </h1>
 
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-white/70">
-                I install a proof system in 48 hours. Then when a dispute hits, I
-                build the evidence pack in 24 hours so it’s quick to handle, not a
-                panic day.
+                I set up your Proof Vault in 48 hours so every sale has clean proof. When disputes hit, you get a ready-to-submit Evidence Pack in 24 hours.
               </p>
 
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link href="/#score" className={primaryBtn}>
-                  Get a 2-minute readiness score
+                  Get readiness score
                 </Link>
                 <Link href="/#self-test" className={secondaryBtn}>
                   Quick self-test
                 </Link>
                 <a href={emailInstead} className={tertiaryLink}>
-                  Email instead
+                  Email me instead
                 </a>
               </div>
 
               <p className="mt-3 text-sm text-white/50">
-                No call required. Async over email, Slack, or Discord.
+                Takes about 2 minutes. No call.
               </p>
 
               <div className="mt-10 h-px w-full dark-divider" />
@@ -72,10 +70,11 @@ export default function Home() {
                 Who this is for
               </h2>
               <ul className="mt-4 grid gap-3 text-sm text-white/75">
+                {["Those who sell:",]}
                 {[
-                  "Courses, coaching, masterminds, cohorts",
-                  "Memberships and paid communities (Skool, Discord, Circle, Whop)",
-                  "Signals subscriptions (trading, sports picks, reselling)",
+                  "Courses, coaching, memberships",
+                  "Paid communities (Skool, Discord, Circle, Whop)",
+                  "Digital subscriptions (trading, sports picks, reselling)",
                 ].map((t) => (
                   <li key={t} className="flex gap-3">
                     <span className="mt-2 h-2 w-2 rounded-full bg-[var(--cbp-accent-2)]" />
@@ -134,9 +133,7 @@ export default function Home() {
               What this service actually is
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              Not a “win rate” promise. This is operational readiness. Evidence gets
-              organized fast, deadlines don’t get missed, and the response pack is
-              clean.
+              This is operational readiness. Clean proof, clean folders, fast response. No win-rate promises.
             </p>
           </div>
 
@@ -146,7 +143,7 @@ export default function Home() {
                 48-hour Prep Install
               </h3>
               <p className="mt-1 text-sm text-zinc-600">
-                I install a proof trail so evidence is easy to pull when a dispute hits.
+                I set up your Proof Vault so proof is easy to pull when disputes hit.
               </p>
 
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
@@ -173,7 +170,7 @@ export default function Home() {
                   href={emailInstead}
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
-                  Email instead
+                  Email me instead
                 </a>
               </div>
             </div>
@@ -183,7 +180,7 @@ export default function Home() {
                 24-hour Evidence Pack
               </h3>
               <p className="mt-1 text-sm text-zinc-600">
-                When a chargeback hits, I deliver a submission-ready pack. No scrambling.
+                When a chargeback hits, you get a ready-to-submit pack within 24 hours. No stress.
               </p>
 
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
@@ -210,7 +207,7 @@ export default function Home() {
                   href={emailInstead}
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
-                  Email instead
+                  Email me instead
                 </a>
               </div>
             </div>
@@ -280,9 +277,9 @@ export default function Home() {
                 <p className="text-sm font-semibold text-zinc-900">What you get back</p>
                 <ul className="mt-4 grid gap-3 text-sm text-zinc-700">
                   {[
-                    "A simple pass/fail score on policy acceptance and access proof",
-                    "The 3 biggest gaps to fix first",
-                    "What I’d install in your Proof Vault so disputes are faster",
+                    "Pass/fail on policy acceptance + access proof",
+                    "The top 3 gaps to fix first",
+                    "What I’d install so disputes take minutes, not hours",
                   ].map((t) => (
                     <li key={t} className="flex gap-3">
                       <span className="mt-2 h-2 w-2 rounded-full bg-[var(--cbp-accent-2)]" />
@@ -293,7 +290,7 @@ export default function Home() {
               </div>
             </div>
 
-            <ReadinessScoreForm toEmail="donovan@chargebackprep.com" />
+            <ReadinessScoreForm toEmail="donovan@chargebackprep.com" /> 
           </div>
         </div>
       </section>
@@ -309,7 +306,7 @@ export default function Home() {
               Pricing
             </h2>
             <p className="mt-2 text-sm text-zinc-600">
-              Simple. No contracts. No call required.
+              Simple pricing. No contracts. No call.
             </p>
           </div>
 
@@ -340,13 +337,13 @@ export default function Home() {
 
               <div className="mt-6 grid gap-3">
                 <Link href="/#score" className={primaryBtn}>
-                  Ask for a readiness score
+                  Get readiness score
                 </Link>
                 <a
                   href={emailInstead}
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
-                  Email instead
+                  Email me instead
                 </a>
               </div>
             </div>
@@ -378,13 +375,13 @@ export default function Home() {
 
               <div className="mt-6 grid gap-3">
                 <Link href="/#score" className={primaryBtn}>
-                  Ask for a readiness score
+                  Get readiness score
                 </Link>
                 <a
                   href={emailInstead}
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
-                  Email instead
+                  Email me instead
                 </a>
               </div>
             </div>
@@ -412,13 +409,13 @@ export default function Home() {
 
               <div className="mt-6 grid gap-3">
                 <Link href="/#score" className={primaryBtn}>
-                  Ask for a readiness score
+                  Get readiness score
                 </Link>
                 <a
                   href={emailInstead}
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
-                  Email instead
+                  Email me instead
                 </a>
               </div>
             </div>

@@ -94,7 +94,7 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
     <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-soft">
       <div className="flex flex-col gap-1">
         <h3 className="text-xl font-semibold tracking-tight text-zinc-900">
-          Get a readiness score
+          Get readiness score
         </h3>
         <p className="text-sm text-zinc-600">
           Fill this out. It opens an email to me. I reply with what’s missing and
@@ -193,7 +193,7 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
 
         <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
           <button type="submit" className={primaryBtn}>
-            Send readiness score request
+            Get readiness score
           </button>
 
           <button

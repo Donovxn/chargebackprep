@@ -16,8 +16,8 @@ export default function SiteNav() {
             <Image
               src="/cp-mark.png"
               alt="Chargeback Prep"
-              width={22}
-              height={22}
+              width={50}
+              height={50}
               priority
             />
           </span>

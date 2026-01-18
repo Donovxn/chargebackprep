@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
+import ScoreScroll from "@/components/ScoreScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,7 +14,13 @@ export const metadata: Metadata = {
   title: "Chargeback Prep",
   description:
     "Dispute readiness + fast evidence packs for creators selling digital offers. No win-rate promises. Not legal advice.",
+  icons: {
+    icon: [{ url: "/apple-touch-icon.png", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
 };
+
+
 
 export default function RootLayout({
   children,
@@ -29,6 +36,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <ScoreScroll />
 
         <SiteNav />
 
