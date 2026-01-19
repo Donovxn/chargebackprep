@@ -10,7 +10,7 @@ export default function SiteNav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white/75 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 sm:gap-4">
           <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl bg-zinc-950">
             {/* Put your transparent mark at /public/cp-mark.png */}
             <Image
