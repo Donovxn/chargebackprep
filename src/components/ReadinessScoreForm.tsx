@@ -1,25 +1,31 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type FormState = {
   name: string;
+  email: string;
   offerType: string;
   platform: string;
   processor: string;
   policyLink: string;
   supportChannel: string;
   notes: string;
+  // Honeypot (hidden). Should stay empty.
+  company: string;
 };
 
 const initial: FormState = {
   name: "",
+  email: "",
   offerType: "course",
   platform: "",
   processor: "",
   policyLink: "",
   supportChannel: "",
   notes: "",
+  company: "",
 };
 
 const OFFER_LABEL: Record<string, string> = {
@@ -38,6 +44,7 @@ function buildEmailBody(v: FormState) {
   return `Quick readiness score request
 
 Name: ${v.name || "(not provided)"}
+Email: ${v.email || "(not provided)"}
 
 1) What do you sell? ${offer}
 2) Platform(s): ${v.platform}
@@ -50,14 +57,22 @@ ${v.notes || "(none)"}
 `;
 }
 
-export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.com" }: { toEmail?: string }) {
+export default function ReadinessScoreForm({
+  toEmail = "donovan@chargebackprep.com",
+}: {
+  toEmail?: string;
+}) {
+  const router = useRouter();
 
   const [v, setV] = useState<FormState>(initial);
   const [copied, setCopied] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const subject = "Chargeback Prep - readiness score";
   const body = useMemo(() => buildEmailBody(v), [v]);
 
+  // Keep mailto ONLY as fallback
   const mailto = useMemo(() => {
     const s = encodeURIComponent(subject);
     const b = encodeURIComponent(body);
@@ -70,7 +85,7 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
     "min-h-[110px] w-full rounded-xl border border-black/10 bg-white px-3 py-3 text-sm text-zinc-900 shadow-sm outline-none placeholder:text-zinc-400 focus:border-black/20 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--cbp-accent-2)_55%,white_45%)]";
 
   const primaryBtn =
-    "inline-flex items-center justify-center rounded-xl bg-[linear-gradient(135deg,var(--cbp-accent-2),var(--cbp-accent-1))] px-4 py-2 text-sm font-semibold text-[var(--cbp-text)] shadow-soft hover:opacity-95";
+    "inline-flex items-center justify-center rounded-xl bg-[linear-gradient(135deg,var(--cbp-accent-2),var(--cbp-accent-1))] px-4 py-2 text-sm font-semibold text-[var(--cbp-text)] shadow-soft hover:opacity-95 disabled:opacity-60";
   const secondaryBtn =
     "inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50";
 
@@ -85,9 +100,29 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
     }
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    window.location.href = mailto;
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("/api/readiness", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(v),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "Something went wrong.");
+      }
+
+      router.push("/score/thanks");
+    } catch (err: any) {
+      setError(err?.message || "Something went wrong.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -97,12 +132,26 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
           Get readiness score
         </h3>
         <p className="text-sm text-zinc-600">
-          Fill this out. It opens an email to me. I reply with what’s missing and
-          the next step.
+          Fill this out. You will see a confirmation screen. I send your score by
+          email.
         </p>
       </div>
 
       <form className="mt-6 grid gap-4" onSubmit={onSubmit}>
+        {/* Honeypot */}
+        <div className="hidden">
+          <label className="grid gap-1 text-sm">
+            <span>Company</span>
+            <input
+              value={v.company}
+              onChange={(e) => setV({ ...v, company: e.target.value })}
+              className={input}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </label>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="grid gap-1 text-sm">
             <span className="font-medium text-zinc-900">Name (optional)</span>
@@ -114,6 +163,20 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
             />
           </label>
 
+          <label className="grid gap-1 text-sm">
+            <span className="font-medium text-zinc-900">Email</span>
+            <input
+              required
+              value={v.email}
+              onChange={(e) => setV({ ...v, email: e.target.value })}
+              className={input}
+              placeholder="you@email.com"
+              type="email"
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
           <label className="grid gap-1 text-sm">
             <span className="font-medium text-zinc-900">What do you sell?</span>
             <select
@@ -130,9 +193,7 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
               <option value="other">Other</option>
             </select>
           </label>
-        </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
           <label className="grid gap-1 text-sm">
             <span className="font-medium text-zinc-900">Platform(s)</span>
             <input
@@ -143,7 +204,9 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
               placeholder="Kajabi, Skool, Whop, Discord..."
             />
           </label>
+        </div>
 
+        <div className="grid gap-4 sm:grid-cols-2">
           <label className="grid gap-1 text-sm">
             <span className="font-medium text-zinc-900">Payment processor</span>
             <input
@@ -154,18 +217,18 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
               placeholder="Stripe, PayPal..."
             />
           </label>
-        </div>
 
-        <label className="grid gap-1 text-sm">
-          <span className="font-medium text-zinc-900">Refund policy link</span>
-          <input
-            required
-            value={v.policyLink}
-            onChange={(e) => setV({ ...v, policyLink: e.target.value })}
-            className={input}
-            placeholder="https://..."
-          />
-        </label>
+          <label className="grid gap-1 text-sm">
+            <span className="font-medium text-zinc-900">Refund policy link</span>
+            <input
+              required
+              value={v.policyLink}
+              onChange={(e) => setV({ ...v, policyLink: e.target.value })}
+              className={input}
+              placeholder="https://..."
+            />
+          </label>
+        </div>
 
         <label className="grid gap-1 text-sm">
           <span className="font-medium text-zinc-900">
@@ -191,9 +254,18 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
           />
         </label>
 
+        {error ? (
+          <p className="text-sm text-red-600">
+            {error}{" "}
+            <a className="underline" href={mailto}>
+              Email me instead
+            </a>
+          </p>
+        ) : null}
+
         <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <button type="submit" className={primaryBtn}>
-            Get readiness score
+          <button type="submit" className={primaryBtn} disabled={submitting}>
+            {submitting ? "Sending..." : "Get readiness score"}
           </button>
 
           <button
@@ -206,7 +278,7 @@ export default function ReadinessScoreForm({ toEmail = "donovan@chargebackprep.c
           </button>
 
           <p className="text-xs text-zinc-500">
-            This opens your email app. If nothing opens, copy and send it to{" "}
+            If submit fails, copy and email it to{" "}
             <span className="font-medium text-zinc-700">{toEmail}</span>.
           </p>
         </div>

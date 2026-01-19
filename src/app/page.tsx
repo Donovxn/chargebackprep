@@ -3,10 +3,15 @@ import ReadinessScoreForm from "@/components/ReadinessScoreForm";
 
 const TO_EMAIL = "donovan@chargebackprep.com";
 
-function mailto(to: string, subject: string, body: string) {
-  const s = encodeURIComponent(subject);
-  const b = encodeURIComponent(body);
-  return `mailto:${to}?subject=${s}&body=${b}`;
+function gmailCompose(to: string, subject: string, body: string) {
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to,
+    su: subject,
+    body,
+  });
+  return `https://mail.google.com/mail/?${params.toString()}`;
 }
 
 const primaryBtn =
@@ -21,11 +26,12 @@ const cardDark =
   "rounded-2xl border border-white/10 bg-white/5 p-6 text-white shadow-soft";
 
 export default function Home() {
-  const emailInstead = mailto(
-    TO_EMAIL,
-    "Chargeback Prep - quick question",
-    "Hey Donovan,\n\nI sell:\nMy platform(s):\nMy payment processor:\nRefund policy link:\n\nMy question:\n"
-  );
+  const emailSubject = "Chargeback Prep - quick question";
+  const emailBody =
+    "Hey Donovan,\n\nI sell:\nMy platform(s):\nMy payment processor:\nRefund policy link:\n\nMy question:\n";
+
+  // Browser-native email option (no Outlook needed)
+  const emailInstead = gmailCompose(TO_EMAIL, emailSubject, emailBody);
 
   return (
     <>
@@ -43,7 +49,9 @@ export default function Home() {
               </h1>
 
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-white/70">
-                I set up your Proof Vault in 48 hours so every sale has clean proof. When disputes hit, you get a ready-to-submit Evidence Pack in 24 hours.
+                I set up your Proof Vault in 48 hours so every sale has clean
+                proof. When disputes hit, you get a ready-to-submit Evidence Pack
+                in 24 hours.
               </p>
 
               <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -53,13 +61,24 @@ export default function Home() {
                 <Link href="/#self-test" className={secondaryBtn}>
                   Quick self-test
                 </Link>
-                <a href={emailInstead} className={tertiaryLink}>
+
+                <a
+                  href={emailInstead}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={tertiaryLink}
+                >
                   Email me instead
                 </a>
               </div>
 
               <p className="mt-3 text-sm text-white/50">
                 Takes about 2 minutes. No call.
+              </p>
+
+              <p className="mt-2 text-xs text-white/45">
+                Prefer email? That link opens Gmail. Or email{" "}
+                <span className="font-medium text-white/70">{TO_EMAIL}</span>.
               </p>
 
               <div className="mt-10 h-px w-full dark-divider" />
@@ -69,8 +88,12 @@ export default function Home() {
               <h2 className="text-sm font-semibold tracking-tight text-white">
                 Who this is for
               </h2>
-              <ul className="mt-4 grid gap-3 text-sm text-white/75">
-                {["Those who sell:",]}
+
+              <p className="mt-4 text-xs font-semibold text-white/80">
+                Those who sell:
+              </p>
+
+              <ul className="mt-3 grid gap-3 text-sm text-white/75">
                 {[
                   "Courses, coaching, memberships",
                   "Paid communities (Skool, Discord, Circle, Whop)",
@@ -95,9 +118,9 @@ export default function Home() {
                   The diagnostic
                 </p>
                 <p className="mt-1 text-sm text-white/70">
-                  If a chargeback hit today, could you pull (1) proof they accepted
-                  your refund policy and (2) proof they accessed what they bought in
-                  under 10 minutes?
+                  If a chargeback hit today, could you pull (1) proof they
+                  accepted your refund policy and (2) proof they accessed what
+                  they bought in under 10 minutes?
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-3">
@@ -114,8 +137,8 @@ export default function Home() {
               </div>
 
               <p className="mt-4 text-xs leading-relaxed text-white/50">
-                Not legal advice. No win-rate promises. Only real proof you already
-                have.
+                Not legal advice. No win-rate promises. Only real proof you
+                already have.
               </p>
             </div>
           </div>
@@ -133,7 +156,8 @@ export default function Home() {
               What this service actually is
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              This is operational readiness. Clean proof, clean folders, fast response. No win-rate promises.
+              This is operational readiness. Clean proof, clean folders, fast
+              response. No win-rate promises.
             </p>
           </div>
 
@@ -143,7 +167,8 @@ export default function Home() {
                 48-hour Prep Install
               </h3>
               <p className="mt-1 text-sm text-zinc-600">
-                I set up your Proof Vault so proof is easy to pull when disputes hit.
+                I set up your Proof Vault so proof is easy to pull when disputes
+                hit.
               </p>
 
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
@@ -168,11 +193,17 @@ export default function Home() {
                 </Link>
                 <a
                   href={emailInstead}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
                   Email me instead
                 </a>
               </div>
+
+              <p className="mt-3 text-xs text-zinc-500">
+                Email: <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+              </p>
             </div>
 
             <div className={card}>
@@ -180,7 +211,8 @@ export default function Home() {
                 24-hour Evidence Pack
               </h3>
               <p className="mt-1 text-sm text-zinc-600">
-                When a chargeback hits, you get a ready-to-submit pack within 24 hours. No stress.
+                When a chargeback hits, you get a ready-to-submit pack within 24
+                hours. No stress.
               </p>
 
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
@@ -205,11 +237,17 @@ export default function Home() {
                 </Link>
                 <a
                   href={emailInstead}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
                   Email me instead
                 </a>
               </div>
+
+              <p className="mt-3 text-xs text-zinc-500">
+                Email: <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+              </p>
             </div>
           </div>
         </div>
@@ -226,7 +264,8 @@ export default function Home() {
               Quick self-test
             </h3>
             <p className="mt-1 text-sm text-zinc-600">
-              If a chargeback hit today, could you pull these two things in under 10 minutes?
+              If a chargeback hit today, could you pull these two things in under
+              10 minutes?
             </p>
 
             <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -244,7 +283,8 @@ export default function Home() {
                   Proof they accessed what they bought
                 </p>
                 <p className="mt-1 text-sm text-zinc-600">
-                  Access granted, logins, usage, attendance, whatever is available.
+                  Access granted, logins, usage, attendance, whatever is
+                  available.
                 </p>
               </div>
             </div>
@@ -254,7 +294,8 @@ export default function Home() {
                 Get readiness score
               </Link>
               <p className="text-sm text-zinc-600">
-                Send your checkout link plus stack. I’ll reply with what’s missing and what to fix first.
+                Send your checkout link plus stack. I’ll reply with what’s missing
+                and what to fix first.
               </p>
             </div>
           </div>
@@ -270,11 +311,14 @@ export default function Home() {
                 Get your readiness score
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                You send details. I reply with the gaps and what to fix first. No call required.
+                You send details. I reply with the gaps and what to fix first. No
+                call required.
               </p>
 
               <div className="mt-6 rounded-2xl border border-black/10 bg-white p-6 shadow-soft">
-                <p className="text-sm font-semibold text-zinc-900">What you get back</p>
+                <p className="text-sm font-semibold text-zinc-900">
+                  What you get back
+                </p>
                 <ul className="mt-4 grid gap-3 text-sm text-zinc-700">
                   {[
                     "Pass/fail on policy acceptance + access proof",
@@ -290,7 +334,7 @@ export default function Home() {
               </div>
             </div>
 
-            <ReadinessScoreForm toEmail="donovan@chargebackprep.com" /> 
+            <ReadinessScoreForm toEmail={TO_EMAIL} />
           </div>
         </div>
       </section>
@@ -312,7 +356,9 @@ export default function Home() {
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             <div className={card}>
-              <p className="text-sm font-semibold text-zinc-900">48-hour Prep Install</p>
+              <p className="text-sm font-semibold text-zinc-900">
+                48-hour Prep Install
+              </p>
               <p className="mt-2 text-4xl font-semibold tracking-tight text-zinc-900">
                 $500
               </p>
@@ -341,10 +387,16 @@ export default function Home() {
                 </Link>
                 <a
                   href={emailInstead}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
                   Email me instead
                 </a>
+                <p className="text-xs text-zinc-500">
+                  Email:{" "}
+                  <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+                </p>
               </div>
             </div>
 
@@ -352,7 +404,9 @@ export default function Home() {
               <p className="text-sm font-semibold text-zinc-900">Evidence Packs</p>
               <p className="mt-2 text-4xl font-semibold tracking-tight text-zinc-900">
                 $150{" "}
-                <span className="text-base font-semibold text-zinc-600">/ dispute</span>
+                <span className="text-base font-semibold text-zinc-600">
+                  / dispute
+                </span>
               </p>
               <p className="mt-2 text-sm text-zinc-600">
                 Delivered fast once inputs are provided.
@@ -379,15 +433,23 @@ export default function Home() {
                 </Link>
                 <a
                   href={emailInstead}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
                   Email me instead
                 </a>
+                <p className="text-xs text-zinc-500">
+                  Email:{" "}
+                  <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+                </p>
               </div>
             </div>
 
             <div className={card}>
-              <p className="text-sm font-semibold text-zinc-900">Optional Retainer (later)</p>
+              <p className="text-sm font-semibold text-zinc-900">
+                Optional Retainer (later)
+              </p>
               <p className="mt-2 text-4xl font-semibold tracking-tight text-zinc-900">
                 $299{" "}
                 <span className="text-base font-semibold text-zinc-600">/ mo</span>
@@ -413,10 +475,16 @@ export default function Home() {
                 </Link>
                 <a
                   href={emailInstead}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
                 >
                   Email me instead
                 </a>
+                <p className="text-xs text-zinc-500">
+                  Email:{" "}
+                  <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+                </p>
               </div>
             </div>
           </div>
@@ -436,21 +504,19 @@ export default function Home() {
                 No win-rate promises
               </p>
               <p className="mt-2 text-sm text-zinc-600">
-                I only promise what I control: speed, organization, and a clean evidence pack.
+                I only promise what I control: speed, organization, and a clean
+                evidence pack.
               </p>
             </div>
             <div className={card}>
-              <p className="text-sm font-semibold text-zinc-900">
-                No fake evidence
-              </p>
+              <p className="text-sm font-semibold text-zinc-900">No fake evidence</p>
               <p className="mt-2 text-sm text-zinc-600">
-                Everything is real. If it doesn’t exist, we fix the system so it exists next time.
+                Everything is real. If it doesn’t exist, we fix the system so it
+                exists next time.
               </p>
             </div>
             <div className={card}>
-              <p className="text-sm font-semibold text-zinc-900">
-                Not legal advice
-              </p>
+              <p className="text-sm font-semibold text-zinc-900">Not legal advice</p>
               <p className="mt-2 text-sm text-zinc-600">
                 This is operational readiness and packaging, not legal strategy.
               </p>
@@ -475,8 +541,8 @@ export default function Home() {
                 Do you need access to everything?
               </summary>
               <p className="mt-3 text-sm text-zinc-600">
-                No. I’ll ask for the best available proof sources for your stack. If
-                you can’t grant access, exports and screenshots can work.
+                No. I’ll ask for the best available proof sources for your stack.
+                If you can’t grant access, exports and screenshots can work.
               </p>
             </details>
 
@@ -515,12 +581,19 @@ export default function Home() {
             <Link href="/#score" className={primaryBtn}>
               Get readiness score
             </Link>
+
             <a
               href={emailInstead}
+              target="_blank"
+              rel="noreferrer"
               className="text-sm font-medium text-zinc-700 hover:underline"
             >
               Or email me directly
             </a>
+
+            <span className="text-xs text-zinc-500">
+              ({TO_EMAIL})
+            </span>
           </div>
         </div>
       </section>
