@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ReadinessScoreForm from "@/components/ReadinessScoreForm";
+import CopyToClipboard from "@/components/CopyToClipboard";
 
 const TO_EMAIL = "donovan@chargebackprep.com";
 
@@ -18,10 +19,13 @@ const primaryBtn =
   "inline-flex items-center justify-center rounded-xl bg-[linear-gradient(135deg,var(--cbp-accent-2),var(--cbp-accent-1))] px-4 py-2 text-sm font-semibold text-[var(--cbp-text)] shadow-soft hover:opacity-95";
 const secondaryBtn =
   "inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 hover:bg-white/10";
+const tertiaryBtnLight =
+  "inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50";
 const tertiaryLink =
   "text-sm font-medium text-white/70 underline-offset-4 hover:text-white hover:underline";
 
 const card = "rounded-2xl border border-black/10 bg-white p-6 shadow-soft";
+const stepCard = "rounded-2xl border border-black/10 bg-white p-5 shadow-soft";
 const cardDark =
   "rounded-2xl border border-white/10 bg-white/5 p-6 text-white shadow-soft";
 
@@ -30,7 +34,6 @@ export default function Home() {
   const emailBody =
     "Hey Donovan,\n\nI sell:\nMy platform(s):\nMy payment processor:\nRefund policy link:\n\nMy question:\n";
 
-  // Browser-native email option (no Outlook needed)
   const emailInstead = gmailCompose(TO_EMAIL, emailSubject, emailBody);
 
   return (
@@ -51,13 +54,27 @@ export default function Home() {
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-white/70">
                 I set up your Proof Vault in 48 hours so every sale has clean
                 proof. When disputes hit, you get a ready-to-submit Evidence Pack
-                in 24 hours.
+                delivered within 24 hours of receiving the needed inputs/access.
               </p>
+
+              <div className="mt-3 max-w-xl space-y-1 text-sm text-white/60">
+                <p>
+                  <span className="font-semibold text-white/80">Proof Vault</span>{" "}
+                  = a clean folder system + proof sources mapped so you can pull
+                  evidence fast.
+                </p>
+                <p>
+                  <span className="font-semibold text-white/80">Evidence Pack</span>{" "}
+                  = a ready-to-submit PDF/zip with summary, timeline, receipts,
+                  policy, acceptance, and access proof.
+                </p>
+              </div>
 
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link href="/#score" className={primaryBtn}>
                   Get readiness score
                 </Link>
+
                 <Link href="/#self-test" className={secondaryBtn}>
                   Quick self-test
                 </Link>
@@ -70,6 +87,13 @@ export default function Home() {
                 >
                   Email me instead
                 </a>
+
+                <CopyToClipboard
+                  value={TO_EMAIL}
+                  label="Copy email"
+                  copiedLabel="Copied"
+                  className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-semibold text-white/90 hover:bg-white/10"
+                />
               </div>
 
               <p className="mt-3 text-sm text-white/50">
@@ -174,7 +198,7 @@ export default function Home() {
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
                 {[
                   "Lock your refund policy and saved versions (versioning starts immediately)",
-                  "Map policy acceptance proof (best available for your stack)",
+                  "Map policy acceptance proof (best available for your tools)",
                   "Map access and delivery proof sources",
                   "Build the folder system and naming (Proof Vault)",
                   "Add an evidence pack template (so we don’t rebuild from scratch)",
@@ -195,14 +219,15 @@ export default function Home() {
                   href={emailInstead}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                  className={tertiaryBtnLight}
                 >
                   Email me instead
                 </a>
               </div>
 
               <p className="mt-3 text-xs text-zinc-500">
-                Email: <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+                Email:{" "}
+                <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
               </p>
             </div>
 
@@ -211,8 +236,8 @@ export default function Home() {
                 24-hour Evidence Pack
               </h3>
               <p className="mt-1 text-sm text-zinc-600">
-                When a chargeback hits, you get a ready-to-submit pack within 24
-                hours. No stress.
+                Delivered within 24 hours of receiving the needed inputs/access.
+                No stress.
               </p>
 
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
@@ -239,14 +264,15 @@ export default function Home() {
                   href={emailInstead}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                  className={tertiaryBtnLight}
                 >
                   Email me instead
                 </a>
               </div>
 
               <p className="mt-3 text-xs text-zinc-500">
-                Email: <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
+                Email:{" "}
+                <span className="font-medium text-zinc-700">{TO_EMAIL}</span>
               </p>
             </div>
           </div>
@@ -294,8 +320,9 @@ export default function Home() {
                 Get readiness score
               </Link>
               <p className="text-sm text-zinc-600">
-                Send your checkout link plus stack. I’ll reply with what’s missing
-                and what to fix first.
+                Send your checkout link + the tools you use (Stripe, PayPal,
+                Kajabi, Skool, Discord, etc.). I’ll reply with what’s missing and
+                what to fix first.
               </p>
             </div>
           </div>
@@ -319,6 +346,7 @@ export default function Home() {
                 <p className="text-sm font-semibold text-zinc-900">
                   What you get back
                 </p>
+
                 <ul className="mt-4 grid gap-3 text-sm text-zinc-700">
                   {[
                     "Pass/fail on policy acceptance + access proof",
@@ -331,6 +359,32 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+
+                <details className="mt-6 rounded-xl border border-black/10 bg-zinc-50 p-4">
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900">
+                    Policy acceptance proof examples
+                  </summary>
+
+                  <p className="mt-2 text-sm text-zinc-600">
+                    Here’s what “proof they accepted the refund policy” can look
+                    like, depending on your tools:
+                  </p>
+
+                  <ul className="mt-4 grid gap-3 text-sm text-zinc-700">
+                    {[
+                      "Checkout terms checkbox log or screenshot (shows they agreed).",
+                      "Order confirmation page that includes a terms/policy link.",
+                      "Checkout receipt/email that references terms or policy acceptance.",
+                      "Platform audit log showing a buyer accepted terms (if available).",
+                      "Saved policy page version + timestamp that matches the purchase date.",
+                    ].map((t) => (
+                      <li key={t} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 rounded-full bg-[var(--cbp-accent-2)]" />
+                        <span>{t}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </div>
             </div>
 
@@ -345,6 +399,7 @@ export default function Home() {
         className="scroll-mt-24 bg-[var(--cbp-bg)] py-16 sm:py-20"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          {/* Title block (keep clean + left aligned) */}
           <div className="max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
               Pricing
@@ -354,7 +409,61 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {/* How it works (separate block so it doesn't fight the header) */}
+          <div className="mt-8">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-zinc-900">How it works</p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  Simple flow. Async by default.
+                </p>
+              </div>
+
+              <p className="hidden text-xs text-zinc-500 sm:block">
+                48h install. Packs delivered within 24h of receiving inputs/access.
+              </p>
+            </div>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-3">
+              <div className={stepCard}>
+                <p className="text-xs font-semibold text-zinc-600">Step 1</p>
+                <p className="mt-2 text-sm font-semibold text-zinc-900">
+                  Readiness score
+                </p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  You submit the form. I reply with the gaps (in order) and what to
+                  fix first.
+                </p>
+              </div>
+
+              <div className={stepCard}>
+                <p className="text-xs font-semibold text-zinc-600">Step 2</p>
+                <p className="mt-2 text-sm font-semibold text-zinc-900">
+                  48-hour install
+                </p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  If you want help, I install the Proof Vault in 48 hours so proof is
+                  easy to pull.
+                </p>
+              </div>
+
+              <div className={stepCard}>
+                <p className="text-xs font-semibold text-zinc-600">Step 3</p>
+                <p className="mt-2 text-sm font-semibold text-zinc-900">
+                  When disputes hit
+                </p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  You text or email me. I return an Evidence Pack within 24 hours of
+                  receiving the needed inputs/access.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 h-px w-full bg-black/5" />
+
+          {/* Pricing cards */}
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
             <div className={card}>
               <p className="text-sm font-semibold text-zinc-900">
                 48-hour Prep Install
@@ -409,7 +518,7 @@ export default function Home() {
                 </span>
               </p>
               <p className="mt-2 text-sm text-zinc-600">
-                Delivered fast once inputs are provided.
+                Delivered within 24 hours of receiving the needed inputs/access.
               </p>
 
               <ul className="mt-5 grid gap-3 text-sm text-zinc-700">
@@ -541,7 +650,7 @@ export default function Home() {
                 Do you need access to everything?
               </summary>
               <p className="mt-3 text-sm text-zinc-600">
-                No. I’ll ask for the best available proof sources for your stack.
+                No. I’ll ask for the best available proof sources for your tools.
                 If you can’t grant access, exports and screenshots can work.
               </p>
             </details>
@@ -551,8 +660,8 @@ export default function Home() {
                 Do we need a call?
               </summary>
               <p className="mt-3 text-sm text-zinc-600">
-                No. We can do this async over email. If you prefer Slack or Discord,
-                that works too.
+                No. We can do this async over email. If you prefer Slack or
+                Discord, that works too.
               </p>
             </details>
 
@@ -571,8 +680,8 @@ export default function Home() {
                 Can you guarantee I’ll win disputes?
               </summary>
               <p className="mt-3 text-sm text-zinc-600">
-                No. No guarantees. What I do is make your evidence fast to pull and
-                clean to submit, so you respond on time with your best proof.
+                No. No guarantees. What I do is make your evidence fast to pull
+                and clean to submit, so you respond on time with your best proof.
               </p>
             </details>
           </div>
@@ -591,9 +700,7 @@ export default function Home() {
               Or email me directly
             </a>
 
-            <span className="text-xs text-zinc-500">
-              ({TO_EMAIL})
-            </span>
+            <span className="text-xs text-zinc-500">({TO_EMAIL})</span>
           </div>
         </div>
       </section>
