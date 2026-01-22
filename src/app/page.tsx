@@ -393,13 +393,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRICING */}
+           {/* HOW IT WORKS */}
       <section
-        id="pricing"
+        id="how"
         className="scroll-mt-24 bg-[var(--cbp-bg)] py-16 sm:py-20"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          {/* Title block (keep clean + left aligned) */}
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+              How it works
+            </h2>
+            <p className="mt-2 text-sm text-zinc-600">
+              Simple flow. Async by default. 48h install. Packs delivered within
+              24h of receiving inputs/access.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <div className={stepCard}>
+              <p className="text-xs font-semibold text-zinc-600">Step 1</p>
+              <p className="mt-2 text-sm font-semibold text-zinc-900">
+                Readiness score
+              </p>
+              <p className="mt-1 text-sm text-zinc-600">
+                You submit the form. I reply with the gaps (in order) and what to
+                fix first.
+              </p>
+            </div>
+
+            <div className={stepCard}>
+              <p className="text-xs font-semibold text-zinc-600">Step 2</p>
+              <p className="mt-2 text-sm font-semibold text-zinc-900">
+                48-hour install
+              </p>
+              <p className="mt-1 text-sm text-zinc-600">
+                If you want help, I install the Proof Vault in 48 hours so proof
+                is easy to pull.
+              </p>
+            </div>
+
+            <div className={stepCard}>
+              <p className="text-xs font-semibold text-zinc-600">Step 3</p>
+              <p className="mt-2 text-sm font-semibold text-zinc-900">
+                When disputes hit
+              </p>
+              <p className="mt-1 text-sm text-zinc-600">
+                You text or email me. I return an Evidence Pack within 24 hours
+                of receiving the needed inputs/access.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link href="/#score" className={primaryBtn}>
+              Get readiness score
+            </Link>
+            <Link
+              href="/#pricing"
+              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+            >
+              See pricing
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section
+        id="pricing"
+        className="scroll-mt-24 bg-[var(--cbp-bg)] pb-16 sm:pb-20"
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
               Pricing
@@ -409,61 +473,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* How it works (separate block so it doesn't fight the header) */}
-          <div className="mt-8">
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <p className="text-sm font-semibold text-zinc-900">How it works</p>
-                <p className="mt-1 text-sm text-zinc-600">
-                  Simple flow. Async by default.
-                </p>
-              </div>
-
-              <p className="hidden text-xs text-zinc-500 sm:block">
-                48h install. Packs delivered within 24h of receiving inputs/access.
-              </p>
-            </div>
-
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
-              <div className={stepCard}>
-                <p className="text-xs font-semibold text-zinc-600">Step 1</p>
-                <p className="mt-2 text-sm font-semibold text-zinc-900">
-                  Readiness score
-                </p>
-                <p className="mt-1 text-sm text-zinc-600">
-                  You submit the form. I reply with the gaps (in order) and what to
-                  fix first.
-                </p>
-              </div>
-
-              <div className={stepCard}>
-                <p className="text-xs font-semibold text-zinc-600">Step 2</p>
-                <p className="mt-2 text-sm font-semibold text-zinc-900">
-                  48-hour install
-                </p>
-                <p className="mt-1 text-sm text-zinc-600">
-                  If you want help, I install the Proof Vault in 48 hours so proof is
-                  easy to pull.
-                </p>
-              </div>
-
-              <div className={stepCard}>
-                <p className="text-xs font-semibold text-zinc-600">Step 3</p>
-                <p className="mt-2 text-sm font-semibold text-zinc-900">
-                  When disputes hit
-                </p>
-                <p className="mt-1 text-sm text-zinc-600">
-                  You text or email me. I return an Evidence Pack within 24 hours of
-                  receiving the needed inputs/access.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 h-px w-full bg-black/5" />
-
-          {/* Pricing cards */}
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
             <div className={card}>
               <p className="text-sm font-semibold text-zinc-900">
                 48-hour Prep Install
@@ -498,7 +508,7 @@ export default function Home() {
                   href={emailInstead}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                  className={tertiaryBtnLight}
                 >
                   Email me instead
                 </a>
@@ -544,7 +554,7 @@ export default function Home() {
                   href={emailInstead}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                  className={tertiaryBtnLight}
                 >
                   Email me instead
                 </a>
@@ -586,7 +596,7 @@ export default function Home() {
                   href={emailInstead}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                  className={tertiaryBtnLight}
                 >
                   Email me instead
                 </a>
